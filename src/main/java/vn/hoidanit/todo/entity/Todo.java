@@ -1,4 +1,4 @@
-package vn.hoidanit.todo.model;
+package vn.hoidanit.todo.entity;
 
 import jakarta.persistence.*;
 
@@ -12,6 +12,12 @@ public class Todo {
     String username;
 
     boolean isCompleted;
+
+    public Todo(){}
+    public Todo(String username, boolean isCompleted) {
+        this.username = username;
+        this.isCompleted = isCompleted;
+    }
 
     public Long getId() {
         return id;
@@ -35,5 +41,14 @@ public class Todo {
 
     public void setCompleted(boolean completed) {
         isCompleted = completed;
+    }
+
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", isCompleted=" + isCompleted +
+                '}';
     }
 }
