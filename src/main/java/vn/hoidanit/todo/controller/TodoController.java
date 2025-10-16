@@ -1,9 +1,12 @@
 package vn.hoidanit.todo.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import vn.hoidanit.todo.entity.Todo;
 import vn.hoidanit.todo.service.TodoService;
+
+import java.util.List;
 
 @RestController
 public class TodoController {
@@ -14,19 +17,21 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    @GetMapping("/create-todo")
-    public String index() {
-        Todo myTodo = new Todo("hoidanit", true);
-        Todo newTodo = this.todoService.handleCreateTodo(myTodo);
-        return "create todo with id " + newTodo.getId();
+    @GetMapping("/todos/{id}")
+    public ResponseEntity<Todo> getTodoById(@PathVariable Long id) {
+        Todo todoData = this.todoService.getTodoById(id);
+        return ResponseEntity.ok().body(todoData);
     }
 
     @GetMapping("/todos")
-    public String getTodos() {
-//        Todo myTodo = new Todo("hoidanit", true);
-//        Todo newTodo = this.todoService.handleCreateTodo(myTodo);
-        this.todoService.hanldeGetTodos();
-        return "get todos";
+    public ResponseEntity<List<Todo>> getTodos() {
+        List<Todo> listTodo = this.todoService.hanldeGetTodos();
+        return ResponseEntity.ok().body(listTodo);
+    }
+    @PostMapping("/todos")
+    public ResponseEntity<Todo> createTodo(@RequestBody Todo input) {
+        Todo newTodo = this.todoService.handleCreateTodo(input);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTodo);
     }
 
     @GetMapping("/update-todo")

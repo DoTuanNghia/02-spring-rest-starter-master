@@ -16,19 +16,19 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
+    public Todo getTodoById(Long id){
+        Optional<Todo> todoOptional = this.todoRepository.findById(id);
+        return todoOptional.isPresent() ? todoOptional.get() : null;
+    }
+
     public Todo handleCreateTodo(Todo todo){
         //do something
         Todo createdTodo = this.todoRepository.save(todo);
         return createdTodo;
     }
 
-    public void hanldeGetTodos(){
-//        List<Todo> todos = this.todoRepository.findAll();
-//        System.out.println("todos: " + todos);
-        Optional<Todo> todoOptional = this.todoRepository.findByUsername("hoidanit2");
-        if(todoOptional.isPresent()){
-            System.out.println(todoOptional.get().toString());
-        }
+    public List<Todo> hanldeGetTodos(){
+        return this.todoRepository.findAll();
     }
 
     public void hanldeUpdateTodo(){
