@@ -31,13 +31,13 @@ public class TodoService {
         return this.todoRepository.findAll();
     }
 
-    public void hanldeUpdateTodo(){
-        Optional<Todo> todoOptional = this.todoRepository.findById(2L);
+    public void hanldeUpdateTodo(Long id, Todo inputTodo){
+        Optional<Todo> todoOptional = this.todoRepository.findById(id);
         if(todoOptional.isPresent()){
             Todo currentTodo = todoOptional.get();
 
-            currentTodo.setCompleted(false);
-            currentTodo.setUsername("update hoidanit");
+            currentTodo.setCompleted(inputTodo.isCompleted());
+            currentTodo.setUsername(inputTodo.getUsername());
 
             this.todoRepository.save(currentTodo);
         }
