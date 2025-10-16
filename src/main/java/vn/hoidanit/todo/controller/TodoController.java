@@ -36,14 +36,13 @@ public class TodoController {
 
     @PutMapping("/todos/{id}")
     public ResponseEntity<String> updateTodo(@PathVariable Long id, @RequestBody Todo input) {
-//        this.todoService.hanldeUpdateTodo();\
         this.todoService.hanldeUpdateTodo(id, input);
         return ResponseEntity.ok().body("updated");
     }
 
-    @GetMapping("/delete-todo")
-    public String deleteTodo() {
-        this.todoService.hanldeDeleteTodo();
-        return "delete a todo";
+    @DeleteMapping("/todos/{id}")
+    public ResponseEntity<String> deleteTodo(@PathVariable Long id) {
+        this.todoService.hanldeDeleteTodo(id);
+        return ResponseEntity.ok().body("deleted");
     }
 }

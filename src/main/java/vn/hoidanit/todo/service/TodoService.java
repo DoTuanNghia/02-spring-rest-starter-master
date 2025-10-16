@@ -43,7 +43,7 @@ public class TodoService {
         }
     }
 
-    public void hanldeDeleteTodo(){
-        this.todoRepository.deleteById(4L);
+    public void hanldeDeleteTodo(Long id){
+        this.todoRepository.deleteById(id);
     }
 }
