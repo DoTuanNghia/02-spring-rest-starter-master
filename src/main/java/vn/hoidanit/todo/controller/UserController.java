@@ -3,6 +3,7 @@ package vn.hoidanit.todo.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public ResponseEntity<ApiResponse<User>> createUser(@RequestBody User user) {
+	public ResponseEntity<ApiResponse<User>> createUser(@Valid @RequestBody User user) {
 		User created = userService.createUser(user);
 
         var result = new ApiResponse<>(HttpStatus.CREATED, "createUser", created, null);
